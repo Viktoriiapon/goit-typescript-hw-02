@@ -1,23 +1,24 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import SearchBar from "./components/SearchBar/SearchBar";
-import { getImagesByQuery } from "./services/api";
-import ImageGallery from "./components/ImageGallery/ImageGallery";
+import SearchBar from "../SearchBar/SearchBar";
+import  getImagesByQuery  from "../../services/api";
+import ImageGallery from "../ImageGallery/ImageGallery";
 import toast, { Toaster } from "react-hot-toast";
-import Loader from "./components/Loader/Loader";
-import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
-import LoadMoreButton from "./components/LoadMoreButton/LoadMoreButton";
-import ImageModal from "./components/ImageModal/ImageModal";
+import Loader from "../Loader/Loader";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import LoadMoreButton from "../LoadMoreButton/LoadMoreButton";
+import ImageModal from "../ImageModal/ImageModal";
+import { ImageData } from "../../ types";
 
 function App() {
-  const [images, setImages] = useState([]);
-  const [query, setQuery] = useState("");
-  const [page, setPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [btnLoadMore, setbtnLoadMore] = useState(false);
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const [modalImage, setModalImage] = useState("");
+  const [images, setImages] = useState<ImageData[]>([]);
+  const [query, setQuery] = useState<string>("");
+  const [page, setPage] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
+  const [btnLoadMore, setbtnLoadMore] = useState<boolean>(false);
+  const [modalIsOpen, setIsOpen] = useState<boolean>(false);
+  const [modalImage, setModalImage] = useState<ImageData[]>([]);
 
   useEffect(() => {
     if (query.length === 0) return;
@@ -36,7 +37,7 @@ function App() {
     fetchImages();
   }, [query, page]);
 
-  const onSetSearchQuery = (searchTerm) => {
+  const onSetSearchQuery = (searchTerm: string) => {
     setQuery(searchTerm);
     setIsLoading(true);
     setError(false);
@@ -45,7 +46,7 @@ function App() {
   const loadMore = () => {
     setPage((prevPage) => prevPage + 1);
   };
-  const openModal = (id) => {
+  const openModal = (id: string): void => {
     setModalImage(images.filter((image) => image.id === id));
     setIsOpen(true);
     document.body.classList.add("modal-open");

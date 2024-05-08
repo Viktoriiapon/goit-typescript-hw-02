@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
+import { ImageData } from '../../ types';
 import ImageCard from "../ImageCard/ImageCard";
 import './ImageGallery.css'; 
 
-const ImageGallery = ({ images, openModal }) => {
+interface ImageGalleryProps{ 
+  images: ImageData[];
+  openModal: (id : string)=> void;
+
+}
+
+const ImageGallery: FunctionComponent<ImageGalleryProps> = ({ images, openModal }) => {
   return (
     <ul className="imgList"> 
       {Array.isArray(images) &&

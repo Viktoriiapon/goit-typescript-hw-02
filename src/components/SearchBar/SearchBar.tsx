@@ -1,11 +1,26 @@
-import React, { useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
+
 import './SearchBar.css';
 
-const SearchBar = ({ onSetSearchQuery, toast }) => {
-  const [error, setError] = useState(false); 
-  const onSubmit = (e) => {
+interface SearchBarProps{
+  onSetSearchQuery: (searchTerm: string)=> void;
+  toast: (
+    message: string,
+    options?: {
+      icon: string;
+      style: {
+        borderRadius: string;
+        background: string;
+        color: string;
+      };
+    }
+  ) => void;
+}
+const SearchBar: FunctionComponent<SearchBarProps> = ({ onSetSearchQuery, toast }) => {
+  const [error, setError] = useState<boolean>(false); 
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    const value = e.target.search.value;
+    const value: string = (e.target as HTMLFormElement).search.value;
     if (value.trim() === "") {
       setError(true); 
       toast("Please enter a valid value!", {
@@ -20,7 +35,7 @@ const SearchBar = ({ onSetSearchQuery, toast }) => {
     }
     setError(false); 
     onSetSearchQuery(value.trim());
-    e.target.reset();
+    e.currentTarget.reset();
   };
   
   return (

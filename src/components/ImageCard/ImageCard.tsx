@@ -1,7 +1,12 @@
 
-import React from 'react';
+import React, { FunctionComponent } from 'react';
+import { ImageData } from '../../ types';
 import './ImageCard.css'; 
-const ImageCard = ({ image, openModal }) => {
+interface ImageCardProps{
+image: ImageData ;
+openModal: (id: string)=> void;
+} 
+const ImageCard: FunctionComponent<ImageCardProps>= ({ image, openModal }) => {
   return (
     <div className="imgContainer">
       <img

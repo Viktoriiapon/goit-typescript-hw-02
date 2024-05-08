@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import Modal from "react-modal";
+import { ImageData } from '../../ types';
 import './ImageModal.css';
 
 const customStyles = {
@@ -18,7 +19,14 @@ const customStyles = {
 
 Modal.setAppElement("#root");
 
-const ImageModal = ({ closeModal, modalIsOpen, modalImage }) => {
+interface ImageModalProps{
+  closeModal: ()=> void;
+  modalIsOpen: boolean;
+  modalImage: ImageData[];
+  openModal: (id : string)=> void;
+
+}
+const ImageModal: FunctionComponent<ImageModalProps> = ({ closeModal, modalIsOpen, modalImage }) => {
   return (
     <Modal
       isOpen={modalIsOpen}
