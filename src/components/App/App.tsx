@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import SearchBar from "../SearchBar/SearchBar";
-import  getImagesByQuery  from "../../services/api";
+import  { getImagesByQuery } from "../../services/api";
 import ImageGallery from "../ImageGallery/ImageGallery";
 import toast, { Toaster } from "react-hot-toast";
 import Loader from "../Loader/Loader";
