@@ -21,3 +21,8 @@ export interface ImageData{
    
    
 }
+export type ReplyData = {
+    total: number;
+    total_pages: number;
+    results: ImageData[];
+  };

@@ -8,7 +8,7 @@ import Loader from "../Loader/Loader";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import LoadMoreButton from "../LoadMoreButton/LoadMoreButton";
 import ImageModal from "../ImageModal/ImageModal";
-import { ImageData } from "../../ types";
+import { ImageData, ReplyData } from "../../ types";
 
 function App() {
   const [images, setImages] = useState<ImageData[]>([]);
@@ -23,9 +23,9 @@ function App() {
   useEffect(() => {
     if (query.length === 0) return;
 
-    const fetchImages = async () => {
+    const fetchImages = async (query: string, page: number): Promise<void> => {
       try {
-        const data = await getImagesByQuery(query, page);
+        const data: ReplyData = await getImagesByQuery(query, page);
         setImages((prevImages) => [...prevImages, ...data.results]);
         setbtnLoadMore(data.total_pages > page);
       } catch (error) {
@@ -34,7 +34,7 @@ function App() {
         setIsLoading(false);
       }
     };
-    fetchImages();
+    fetchImages(query, page);
   }, [query, page]);
 
   const onSetSearchQuery = (searchTerm: string) => {
